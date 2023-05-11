@@ -1,0 +1,33 @@
+{
+  "name": "iskaypet",
+  "version": "1.0.0",
+  "description": "challengeIskaypet",
+  "main": "src/apps",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "npx ts-node src/apps/api/local.ts"
+  },
+  "author": "pablo chiquero",
+  "license": "ISC",
+  "dependencies": {
+    "@vendia/serverless-express": "^4.10.3",
+    "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1373.0",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "inversify": "^6.0.1",
+    "inversify-express-utils": "^6.4.3",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.115",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "class-validator": "^0.14.0",
+    "cors": "^2.8.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4",
+    "winston": "^3.8.2"
+  }
+}
