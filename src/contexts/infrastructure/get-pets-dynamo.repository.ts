@@ -3,7 +3,6 @@ import { GetPetsRepository } from "../domain";
 import { PetDynamoModel, PETS_TABLE_NAME } from "./models/pet.model.dynamo";
 import { dynamo } from '../../../src/apps/api/shared/services/aws/aws.provider';
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
-import { PetsMapper } from "./mappers/pets.mapper";
 
 @injectable()
 export class GetPetsDynamoRepository implements GetPetsRepository {
@@ -22,10 +21,10 @@ export class GetPetsDynamoRepository implements GetPetsRepository {
             async (resolve, reject) => {
                 return this.dynamoClient.scan(params, (error, data) => {
                     if (error) {
-                        console.error('Error al realizar la operación Scan:', error);
+                        console.error('Error Scan', error);
                         reject(error)
                     } else {
-                        console.log('Elementos de la tabla:', data.Items);
+                        console.log('Elements', data.Items);
                         const pets: PetDynamoModel[] = data.Items ? data.Items.map((item) => ({
                             name: item.name,
                             specie: item.specie,
@@ -40,21 +39,39 @@ export class GetPetsDynamoRepository implements GetPetsRepository {
         );
     }
 
-    async getPetsById(id: string): Promise<PetDynamoModel[]> {
+    async getPetsByName(namePet: string): Promise<PetDynamoModel[]> {
         try {
-            let array: PetDynamoModel[] = [];
-            // const params: DocumentClient.QueryInput = {
-            //     TableName: PETS_TABLE_NAME,
+            const params = {
+                TableName: PETS_TABLE_NAME,
+                KeyConditionExpression: '#name = :name',
+                ExpressionAttributeNames: {
+                    '#name': 'name',
+                },
+                ExpressionAttributeValues: {
+                    ':name': namePet,
+                },
+            };
 
-            // }
-
-            // let params: DocumentClient.GetItemInput = {
-            //     TableName: PETS_TABLE_NAME,
-            //     Key: {
-            //         nickname: itemToGet.nickname,
-            //     },
-            // }
-            return array;
+            return await new Promise(
+                async (resolve, reject) => {
+                    return this.dynamoClient.query(params, function (err, data) {
+                        if (err) {
+                            console.error('Error query:', err);
+                            reject(err);
+                        } else {
+                            const items = data.Items;
+                            const pets: PetDynamoModel[] = items ? items.map((e: any) => ({
+                                name: e.name,
+                                specie: e.specie,
+                                gender: e.gender,
+                                birthDate: e.birthDate
+                            })) : [];
+                            console.log('Elements:', items);
+                            resolve(pets);
+                        }
+                    });
+                }
+            );
 
         } catch (error) {
             throw error;

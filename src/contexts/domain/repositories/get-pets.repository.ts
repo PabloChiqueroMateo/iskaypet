@@ -4,5 +4,5 @@ export interface GetPetsRepository {
 
     getPets(): Promise<PetDynamoModel[]>;
 
-    getPetsById(id:string): Promise<PetDynamoModel[]>;
+    getPetsByName(name:string): Promise<PetDynamoModel[]>;
 }

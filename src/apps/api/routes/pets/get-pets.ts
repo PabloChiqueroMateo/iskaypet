@@ -1,5 +1,5 @@
 import { Request, Router, Response } from "express";
-import { GetPets } from "../../../../contexts/application";
+import { GetPets, GetPetsByName } from "../../../../contexts/application";
 import container from "../../inversify.config";
 
 const route = Router();
@@ -14,10 +14,12 @@ export default (app: Router) => {
     route.get('',
         async (req: Request, res: Response, next) => {
             try {
-                const { id } = req.query;
-                const getPets =  container.get<GetPets>(GetPets);
-                const response = await getPets.run();
-                console.log('ID', id);
+                const name = req.query.name;
+                const getPets = container.get<GetPets>(GetPets);
+                const getPetsByName = container.get<GetPetsByName>(GetPetsByName)
+
+                const response = name ? await getPetsByName.run(name as string) : await getPets.run();
+
 
                 if (response) {
                     res.status(201).json(response);
