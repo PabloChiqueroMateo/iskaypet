@@ -13,30 +13,34 @@ export class GetPetsDynamoRepository implements GetPetsRepository {
 
 
     async getPets(): Promise<PetDynamoModel[]> {
+        try {
+            const params = {
+                TableName: PETS_TABLE_NAME,
+            };
+            return await new Promise(
+                async (resolve, reject) => {
+                    return this.dynamoClient.scan(params, (error, data) => {
+                        if (error) {
+                            console.error('Error Scan', error);
+                            reject(error)
+                        } else {
+                            console.log('Elements', data.Items);
+                            const pets: PetDynamoModel[] = data.Items ? data.Items.map((item) => ({
+                                name: item.name,
+                                especie: item.especie,
+                                gender: item.gender,
+                                birthDate: item.birthDate
+                            })) : [];
 
-        const params = {
-            TableName: PETS_TABLE_NAME,
-        };
-        return await new Promise(
-            async (resolve, reject) => {
-                return this.dynamoClient.scan(params, (error, data) => {
-                    if (error) {
-                        console.error('Error Scan', error);
-                        reject(error)
-                    } else {
-                        console.log('Elements', data.Items);
-                        const pets: PetDynamoModel[] = data.Items ? data.Items.map((item) => ({
-                            name: item.name,
-                            specie: item.specie,
-                            gender: item.gender,
-                            birthDate: item.birthDate
-                        })) : [];
+                            resolve(pets);
+                        }
+                    });
+                }
+            );
+        } catch (error) {
+            throw new Error(error as any)
+        }
 
-                        resolve(pets);
-                    }
-                });
-            }
-        );
     }
 
     async getPetsByName(namePet: string): Promise<PetDynamoModel[]> {
@@ -62,7 +66,7 @@ export class GetPetsDynamoRepository implements GetPetsRepository {
                             const items = data.Items;
                             const pets: PetDynamoModel[] = items ? items.map((e: any) => ({
                                 name: e.name,
-                                specie: e.specie,
+                                especie: e.especie,
                                 gender: e.gender,
                                 birthDate: e.birthDate
                             })) : [];
@@ -75,6 +79,44 @@ export class GetPetsDynamoRepository implements GetPetsRepository {
 
         } catch (error) {
             throw error;
+        }
+    }
+
+
+    async getMostNumerousEspecies(): Promise<string> {
+        try {
+            return await new Promise(
+                async (resolve, reject) => {
+                    return this.dynamoClient.scan({ TableName: PETS_TABLE_NAME }, (err, data) => {
+                        if (err) {
+                            reject(err)
+                        } else {
+                            const especiesCount: any = {};
+
+                            data.Items?.forEach(item => {
+                                especiesCount[item.especie] = (especiesCount[item.especie] || 0) + 1;
+                            });
+
+                            let especieMax = '';
+                            let maxFrecuency = 0;
+
+                            for (const especie in especiesCount) {
+                                if (especiesCount[especie] > maxFrecuency) {
+                                    especieMax = especie;
+                                    maxFrecuency = especiesCount[especie];
+                                }
+                            };
+                            console.log('Especie max', especieMax);
+                            console.log('Max frecuency:', maxFrecuency);
+
+                            resolve(especieMax);
+                        }
+                    });
+
+                }
+            )
+        } catch (error) {
+            throw new Error(error as any);
         }
     }
 }

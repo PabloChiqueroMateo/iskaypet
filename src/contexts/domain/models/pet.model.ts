@@ -4,9 +4,9 @@ export type Pet = {
      */
     name: string;
     /**
-     * Specie of pet
+     * Especie of pet
      */
-    specie: string;
+    especie: string;
     /**
      * Gender of pet
      */

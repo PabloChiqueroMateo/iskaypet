@@ -5,7 +5,8 @@
   "main": "src/apps",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "npx ts-node src/apps/api/local.ts"
+    "serve": "npx ts-node src/apps/api/local.ts",
+    "build": "tsc"
   },
   "author": "pablo chiquero",
   "license": "ISC",
@@ -18,12 +19,16 @@
     "express-validator": "^7.0.1",
     "inversify": "^6.0.1",
     "inversify-express-utils": "^6.4.3",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.115",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
+    "@types/swagger-jsdoc": "^6.0.1",
+    "@types/swagger-ui-express": "^4.1.3",
     "class-validator": "^0.14.0",
     "cors": "^2.8.5",
     "ts-node": "^10.9.1",
