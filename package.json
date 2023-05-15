@@ -5,8 +5,9 @@
   "main": "src/apps",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "npx ts-node src/apps/api/local.ts",
-    "build": "tsc"
+    "serve": "npx ts-node src/local.ts",
+    "build": "tsc",
+    "package": "tsc && zip -r package.zip dist"
   },
   "author": "pablo chiquero",
   "license": "ISC",
