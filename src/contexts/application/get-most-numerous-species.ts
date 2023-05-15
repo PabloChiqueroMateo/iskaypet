@@ -2,11 +2,11 @@ import { inject, injectable } from "inversify";
 import { GetPetsRepository } from "../domain";
 
 @injectable()
-export class GetMostNumerousEspecies {
+export class GetMostNumerousSpecies {
 
     constructor(@inject('GetPetsRepository') private getPetsRepository: GetPetsRepository) { }
     
     async run() {
-        return await this.getPetsRepository.getMostNumerousEspecies();
+        return await this.getPetsRepository.GetMostNumerousSpecies();
     }
 }

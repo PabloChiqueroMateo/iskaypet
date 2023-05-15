@@ -1,8 +1,8 @@
-export const PETS_TABLE_NAME = 'pets'
+export const PETS_TABLE_NAME = 'pets';
 
 export type PetDynamoModel = {
     name: string;
-    especie: string;
+    specie: string;
     gender: string;
     birthDate: string;
 }

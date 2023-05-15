@@ -6,7 +6,7 @@ export type Pet = {
     /**
      * Especie of pet
      */
-    especie: string;
+    specie: string;
     /**
      * Gender of pet
      */

@@ -1,4 +1,5 @@
 import { PetDynamoModel } from "../../infrastructure/models/pet.model.dynamo";
+import { AverageSpecies } from "../models/average-age.model";
 
 export interface GetPetsRepository {
 
@@ -6,5 +7,7 @@ export interface GetPetsRepository {
 
     getPetsByName(name:string): Promise<PetDynamoModel[]>;
 
-    getMostNumerousEspecies(): Promise<string>;
+    GetMostNumerousSpecies(): Promise<string>;
+
+    GetAverageAgeBySpecie(specie:string): Promise<AverageSpecies>;
 }
