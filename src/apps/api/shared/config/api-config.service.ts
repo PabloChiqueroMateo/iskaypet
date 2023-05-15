@@ -2,7 +2,7 @@ import { ConfigService } from './services/config.service.interface';
 import { IskaypetApiConfig } from './models/iskaypet-api-config';
 import * as path from 'path';
 
-const dotenvPath = path.resolve(__dirname, '../../', '.env');
+const dotenvPath = path.resolve(__dirname, '../../../../', '.env');
 require('dotenv').config({ path: dotenvPath })
 
 /**

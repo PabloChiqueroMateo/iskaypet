@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { GetPetsRepository } from "../domain";
 import { PetDynamoModel, PETS_TABLE_NAME } from "./models/pet.model.dynamo";
-import { dynamo } from '../../../src/apps/api/shared/services/aws/aws.provider';
+import { dynamo } from '../../api/shared/services/aws/aws.provider';
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import { NumberCapability } from "aws-sdk/clients/sns";
 import { AverageSpecies } from "../domain/models/average-age.model";

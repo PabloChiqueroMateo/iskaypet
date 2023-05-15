@@ -10,6 +10,10 @@
     "emitDecoratorMetadata": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "local.ts"
+  ],
+  "include": [
+    "src"
   ]
 }

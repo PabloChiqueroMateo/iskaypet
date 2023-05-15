@@ -1,6 +1,7 @@
 import { Request, Router, Response } from "express";
-import { GetMostNumerousEspecies } from "../../../../contexts/application";
-import container from "../../inversify.config";
+import container from "../../../../inversify.config";
+import { GetMostNumerousSpecies } from "../../../contexts/application";
+
 
 const route = Router();
 
@@ -14,7 +15,7 @@ export default (app: Router) => {
     route.get('',
         async (req: Request, res: Response, next) => {
             try {
-                const getMostNumerousSpecies = container.get<GetMostNumerousEspecies>(GetMostNumerousEspecies)
+                const getMostNumerousSpecies = container.get<GetMostNumerousSpecies>(GetMostNumerousSpecies)
 
                 const response = await getMostNumerousSpecies.run();
 

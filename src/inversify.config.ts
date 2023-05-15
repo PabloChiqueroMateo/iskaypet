@@ -1,10 +1,9 @@
 import "reflect-metadata";
 import { Container } from 'inversify';
-
-import { CreatePetRepository, GetPetsRepository } from "../../contexts/domain";
-import { CreatePetDyanmoRepository, GetPetsDynamoRepository } from "../../contexts/infrastructure";
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
-import { CreatePet, GetPets, GetPetsByName, GetMostNumerousSpecies, GetAverageAgeBySpecie } from "../../contexts/application";
+import { CreatePetRepository, GetPetsRepository } from "./apps/contexts/domain";
+import { CreatePet, GetAverageAgeBySpecie, GetMostNumerousSpecies, GetPets, GetPetsByName } from "./apps/contexts/application";
+import { CreatePetDyanmoRepository, GetPetsDynamoRepository } from "./apps/contexts/infrastructure";
 
 const container = new Container();
 container.bind<DocumentClient>(DocumentClient).toConstantValue(new DocumentClient());

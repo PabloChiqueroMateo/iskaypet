@@ -1,8 +1,7 @@
 import { Request, Router, Response } from "express";
-import { GetPets, GetPetsByName } from "../../../../contexts/application";
-import { Pet } from "../../../../contexts/domain";
-import container from "../../inversify.config";
-
+import { GetPets, GetPetsByName } from "../../../contexts/application";
+import { Pet } from "../../../contexts/domain";
+import container from "../../../../inversify.config";
 const route = Router();
 
 /**

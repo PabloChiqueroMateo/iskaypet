@@ -1,7 +1,6 @@
 import { Request, Router, Response } from "express";
-import { GetAverageAgeBySpecie } from "../../../../contexts/application";
-import container from "../../inversify.config";
-
+import { GetAverageAgeBySpecie } from "../../../contexts/application";
+import container from "../../../../inversify.config";
 const route = Router();
 
 /**

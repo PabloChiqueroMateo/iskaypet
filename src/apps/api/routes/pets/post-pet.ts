@@ -1,9 +1,8 @@
 import { Request, Router, Response } from "express";
 import { body } from 'express-validator';
-import { CreatePet } from "../../../../contexts/application/create-pet.service";
-import { Pet } from "../../../../contexts/domain";
-import container from '../../inversify.config';
-
+import { CreatePet } from "../../../contexts/application/create-pet.service";
+import { Pet } from "../../../contexts/domain";
+import container from "../../../../inversify.config";
 const route = Router();
 
 /**
@@ -12,9 +11,23 @@ const route = Router();
 
 export default (app: Router) => {
     app.use('/createPet', route);
+    /**
+     * @swagger
+     * tags:
+     *   name: Pets
+     *   description: API para gestionar mascotas
+     */
 
+    /**
+     * @swagger
+     * path:
+     *  /createPet:
+     *    post:
+     *      summary: Crea una nueva mascota
+     *      tags: [Pets]
+     *      // Resto de la definición de la ruta...
+     */
     route.post('',
-        body('test').exists().isString(),
 
         async (req: Request, res: Response, next) => {
             try {
@@ -31,7 +44,6 @@ export default (app: Router) => {
 
             } catch (error) {
                 console.log(error);
-                
                 next(error)
             }
         }
