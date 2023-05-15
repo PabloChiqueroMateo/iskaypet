@@ -1,7 +1,9 @@
-import dotenv from 'dotenv';
-import path from 'path';
 import { ConfigService } from './services/config.service.interface';
 import { IskaypetApiConfig } from './models/iskaypet-api-config';
+import * as path from 'path';
+
+const dotenvPath = path.resolve(__dirname, '../../', '.env');
+require('dotenv').config({ path: dotenvPath })
 
 /**
  * Service class to manage the config properties for the iskaypet-api
@@ -21,27 +23,19 @@ export class ApiConfigService implements ConfigService {
   }
 
   constructor() {
-    if (process.env.DEVELOPMENT == 'true') {
-      const envFound = dotenv.config({
-        path: path.resolve(__dirname + `/.env`),
-      });
-      if (envFound.error) {
-        throw new Error("Couldn't find .env file");
-      }
-    }
 
     this.config = new IskaypetApiConfig({
-      development: Boolean(process.env.DEVELOPMENT),
+      development: Boolean(process.env['DEVELOPMENT']),
       loggerLevel: 'process.env.LOG_LEVEL',
       api: {
         version: 'v1',
-        prefix: process.env.API_PREFIX || '',
-        envPrefix: process.env.ENV_PREFIX || '',
+        prefix: process.env['API_PREFIX'] || '',
+        envPrefix: process.env['ENV_PREFIX'] || '',
       },
       aws: {
-        region: process.env.AWSREGION,
-        accessKeyId: process.env.ACCESS_KEY_ID,
-        secretAccessKey: process.env.SECRET_ACCESS_KEY
+        region: process.env['AWS_REGION'],
+        accessKeyId: process.env['ACCESS_KEY_ID'],
+        secretAccessKey: process.env['SECRET_ACCESS_KEY']
       }
     });
   }
