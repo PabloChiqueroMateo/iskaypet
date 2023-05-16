@@ -1,8 +1,6 @@
 import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
-import swaggerUi from 'swagger-ui-express';
-import swaggerSpecs from './swagger';
 import routes from './apps/api/routes';
 
 const app = express();
@@ -12,7 +10,7 @@ if (process.env.DEVELOPMENT == 'true') {
     app.use(cors())
 }
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use(routes());
 
