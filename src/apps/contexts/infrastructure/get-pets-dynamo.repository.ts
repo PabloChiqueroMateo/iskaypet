@@ -40,6 +40,7 @@ export class GetPetsDynamoRepository implements GetPetsRepository {
                 }
             );
         } catch (error) {
+            console.log('ERROR GET PETS METHOD => ', error);
             throw new Error(error as any)
         }
 

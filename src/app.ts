@@ -6,13 +6,10 @@ import routes from './apps/api/routes';
 const app = express();
 
 app.use(express.json())
-if (process.env.DEVELOPMENT == 'true') {
-    app.use(cors())
-}
 
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
-app.use(routes());
+app.use('/dev', routes());
 
 // Error handling
 app.use(async (err: any, req: any, res: any, next: any) => {

@@ -8,7 +8,7 @@ const route = Router();
  */
 
 export default (app: Router) => {
-    app.use('/pets/most_numerous_species', route);
+    app.use('/most_numerous_species', route);
 
     route.get('',
         async (req: Request, res: Response, next) => {

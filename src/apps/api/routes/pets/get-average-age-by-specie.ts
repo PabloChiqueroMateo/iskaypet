@@ -8,18 +8,19 @@ const route = Router();
  */
 
 export default (app: Router) => {
-    app.use('/pets/species/average', route);
+    app.use('/species/average', route);
 
-    route.get('/:species_name',
+    route.get('',
 
         async (req: Request, res: Response, next) => {
 
             try {
+                const specie = req.query.specie;
                 const getAverageAgeSpecies = container.get<GetAverageAgeBySpecie>(GetAverageAgeBySpecie);
 
-                const response = await getAverageAgeSpecies.run(req.params.species_name as string);
+                const response = await getAverageAgeSpecies.run(specie as string);
                 if(response) {
-                    res.status(201).json(`The average age for ${req.params.species_name} is: ${response.averageAge} and the Standar deviation is: ${response.standarDeviation}`);
+                    res.status(201).json(`The average age for ${specie} is: ${response.averageAge} and the Standar deviation is: ${response.standarDeviation}`);
                 } else {
                     res.status(500).json(response)
                 }

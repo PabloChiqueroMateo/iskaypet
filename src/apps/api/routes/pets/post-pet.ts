@@ -1,4 +1,4 @@
-import { Request, Router, Response } from "express";
+import express, { Request, Router, Response } from "express";
 import { body } from 'express-validator';
 import { CreatePet } from "../../../contexts/application/create-pet.service";
 import { Pet } from "../../../contexts/domain";
@@ -10,7 +10,8 @@ const route = Router();
  */
 
 export default (app: Router) => {
-    app.use('/createPet', route);
+    app.use('/createpet', route);
+    app.use(express.json())
     /**
      * @swagger
      * tags:
@@ -28,10 +29,12 @@ export default (app: Router) => {
      *      // Resto de la definición de la ruta...
      */
     route.post('',
+        body('test').exists().isString(),
 
         async (req: Request, res: Response, next) => {
             try {
                 const body: Pet = req.body;
+
                 const createPet = container.get<CreatePet>(CreatePet);
 
                 const response = await createPet.run(body);
