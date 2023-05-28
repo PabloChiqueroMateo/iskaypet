@@ -18,23 +18,12 @@ export class CreatePetDyanmoRepository implements CreatePetRepository {
             Item: itemToInsert,
             TableName: PETS_TABLE_NAME
         };
+
         try {
-            const result = await new Promise((resolve, reject) => {
-                this.dynamoClient.put(putInput, (err) => {
-                    if (err) {
-                        console.log('errorrrr');
-                        reject(err);
-                    } else {
-                        resolve(true);
-                    }
-                })
-            });
-
-            return Boolean(result);
-        } catch (error) {
+            const data = await this.dynamoClient.put(putInput).promise();        
+            return true;
+          } catch (error) {
             throw error;
-        }
-
-
+          }
     }
 }

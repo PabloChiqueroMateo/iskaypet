@@ -1,14 +1,14 @@
 import { Request, Router, Response } from "express";
+import { Container } from "inversify";
 import { GetPets, GetPetsByName } from "../../../contexts/application";
 import { Pet } from "../../../contexts/domain";
-import container from "../../../../inversify.config";
 const route = Router();
 
 /**
  * @api {get} / user route for get pets
  */
 
-export default (app: Router) => {
+export default (app: Router, container:Container) => {
     app.use('/pets', route);
 
     route.get('',
@@ -19,7 +19,6 @@ export default (app: Router) => {
                 const getPetsByName = container.get<GetPetsByName>(GetPetsByName)
 
                 const response: Pet[] = name ? await getPetsByName.run(name as string) : await getPets.run();
-
 
                 if (response) {
                     res.status(201).json(response);
